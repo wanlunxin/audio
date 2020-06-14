@@ -1,0 +1,118 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="A simple and clean web audio player">
+	<meta name="author" content="Setiadi">
+	<title>_p5js</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="fontawesome/css/all.css">
+	<link rel="stylesheet" type="text/css" href="css/6p5.css">
+	<style type="text/css">
+		#canva {
+			height: 200px;
+			margin: auto;
+			border: 3px solid #eee;
+		}
+		#canva > canvas {
+			width: 100% !important;
+		}
+	</style>
+	<script src="js/jquery-3.3.1.slim.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script language="javascript" type="text/javascript" src="js/p5.min.js"></script>
+	<script language="javascript" src="js/p5.dom.min.js"></script>
+	<script language="javascript" src="js/p5.sound.min.js"></script>
+	<script>
+		var soundFile;
+		var fft;
+		var fftBands = 1024;
+		var waveform = [];
+
+		function preload() {
+			soundFormats('mp3', 'ogg');
+			soundFile = loadSound('data/planet_lambsey');
+		}
+
+		function setup() {
+			var canva = createCanvas(300, 200);
+			noFill();
+			fft = new p5.FFT(.99, fftBands);
+			canva.parent("canva");
+		}
+
+		function draw() {
+			background(250);
+			waveform = fft.waveform();
+			beginShape();
+			for (var i = 0; i < waveform.length; i++) {
+				stroke(5);
+				strokeWeight(1);
+				vertex(i * 2, map(waveform[i], -1, 1, height, 0));
+			}
+			endShape();
+		}
+
+		
+
+		$(document).ready(function() {
+			$("#play").on("click", function() {
+				if (!soundFile.isPlaying()) {
+					soundFile.play();
+				} else {
+					console.log("it's already playing");
+				}
+			});
+			$("#pause").on("click", function() {
+				soundFile.pause();
+			});
+		});
+		
+	</script>
+</head>
+
+<body class="text-center">
+	<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+		<header class="masthead mb-4">
+			<div class="inner">
+				<a class="text-dark" href="/audio/6p5.html">
+					<h3 class="masthead-brand">
+						<i class="fas fa-headphones text-success"></i>
+					</h3>
+				</a>
+				<!-- <nav class="nav nav-masthead justify-content-center"> <a class="nav-link active" href="#">Home</a>
+					<a class="nav-link" href="#">Album</a>
+					<a class="nav-link text-danger" href="/audio/" target="_blank">_html5</a>
+				</nav> -->
+			</div>
+		</header>
+		<main role="main" class="inner cover p-0">
+			<div class="container text-left p-0 ml-0 mr-0">
+				<div class="row mt-5">
+					<div class="col-sm-12">
+						
+					</div>
+					<div class="col-sm-5 order-sm-12">
+						
+					</div>
+					<div class="col-sm-7 order-sm-1 mb-4">
+						<div id="canva" class="mb-4"></div>
+						<button id="play">Play</button>
+						<button id="pause">Pause</button>
+					</div>
+				</div>
+			</div>
+
+			
+		</main>
+		<footer class="mastfoot mt-auto">
+			<div class="inner">
+				<p>Audio template for <a href="https://codex.web.id/" target="_blank">Listen</a>, by <a href="https://www.instagram.com/terracodeindonesia" target="_blank">@terracodeindonesia</a>.</p>
+			</div>
+		</footer>
+	</div>
+</body>
+
+</html>

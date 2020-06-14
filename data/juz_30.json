@@ -1,0 +1,35 @@
+{
+   "data":{
+      "0":{
+         "url":"kitaro_caravansary",
+         "title":"Caravansary - Kitaro",
+         "duration":"12.00"
+      },
+      "1":{
+         "url":"kitaro_silk_road",
+         "title":"Silk Road - Kitaro",
+         "duration":"12.00"
+      },
+      "2":{
+         "url":"palchebel_canon_in_d",
+         "title":"Canon In D - Palchebel",
+         "duration":"12.00"
+      },
+      "3":{
+         "url":"kitaro_matsuri",
+         "title":"Matsuri - Kitaro",
+         "duration":"12.00"
+      },
+      "4":{
+         "url":"kitaro_koi",
+         "title":"KOI - Kitaro",
+         "duration":"12.00"
+      },
+      "5":{
+         "url":"planet_lambsey",
+         "title":"Planet - Lambsey",
+         "duration":"12.00"
+      }
+   },
+   "playlist":"Instrumen"
+}

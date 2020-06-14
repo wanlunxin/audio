@@ -1,0 +1,65 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<script language="javascript" type="text/javascript" src="js/p5.min.js"></script>
+	<script language="javascript" src="js/p5.dom.min.js"></script>
+	<script language="javascript" src="js/p5.sound.min.js"></script>
+	<script>
+		var song;
+		var button;
+		var amp;
+		var volhistory = [];
+
+		function setup() {
+			createCanvas(200, 200);
+			song = loadSound("data/planet_lambsey.mp3", loaded);
+			amp = new p5.Amplitude();
+			background(51);
+		}
+
+		function loaded() {
+			button = createButton("play");
+			button.mousePressed(togglePlaying);
+		}
+
+		function draw() {
+			background(0);
+			var vol = amp.getLevel();
+			volhistory.push(vol);
+			stroke(255);
+			noFill();
+			push();
+			var currentY = map(vol, 0, 1, height, 0);
+			translate(0, height / 2 - currentY);
+			beginShape();
+			for (var i = 0; i < volhistory.length; i++) {
+				var y = map(volhistory[i], 0, 1, height, 0);
+				vertex(i, y);
+			}
+			endShape();
+			pop();
+			if (volhistory.length > width - 50) {
+				volhistory.splice(0, 1);
+			}
+			stroke(255, 0, 0);
+			line(volhistory.length, 0, volhistory.length, height);
+			// ellipse(100, 100, 200, vol * 200);
+		}
+
+		function togglePlaying() {
+			if (!song.isPlaying()) {
+				song.play();
+				song.setVolume(0.3);
+				button.html("pause");
+			} else {
+				song.pause();
+				button.html("play");
+			}
+		}
+	</script>
+</head>
+
+<body></body>
+
+</html>
